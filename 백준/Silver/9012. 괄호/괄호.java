@@ -1,43 +1,48 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Stack;
+
+import java.io.*;
+import java.util.*;
+
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        Stack<Character> stack = new Stack<>();
-        int[] check = new int[n];
+    int n,answer;
+    String input;
+    boolean flag;
 
-        for (int i = 0; i < n; i++) {
-            String input = br.readLine();
-            int size = input.length();
-            for (int j = 0; j < size; j++) {
-                char c = input.charAt(j);
-                if (c == '(') {
-                    stack.push(c);
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringTokenizer st;
+
+    Stack<Character> stk = new Stack<>();
+
+    void solution() throws Exception{
+        n = Integer.parseInt(br.readLine());
+        for(int i=0;i<n;i++){
+            input = br.readLine();
+            flag=true;
+            int size=input.length();
+            for(int j=0;j<size;j++){
+                if(input.charAt(j)=='('){
+                    stk.push('(');
                 }
-                else {
-                    if (stack.empty()) {
-                        check[i]=1;
-                        break;
+                else{
+                    if(!stk.isEmpty()){
+                        stk.pop();
                     }
-                    else {
-                        stack.pop();
+                    else{
+                        flag=false;
                     }
                 }
             }
-            if (!stack.empty()) {
-                check[i]=1;
-            }
-            if(check[i]==1){
-                System.out.println("NO");
-            }
-            else {
+            if(stk.isEmpty()&&flag)
                 System.out.println("YES");
-            }
-            stack.clear();
+            else
+                System.out.println("NO");
+            stk.clear();
         }
+    }
+
+
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
     }
 }
