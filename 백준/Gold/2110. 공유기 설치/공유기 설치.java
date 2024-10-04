@@ -18,7 +18,6 @@ public class Main {
                 cnt++;
             }
         }
-        //System.out.println("cnt: "+cnt);
         return cnt;
     }
 
@@ -35,10 +34,8 @@ public class Main {
         max=x[n-1];
 
         int lt=1,rt=max-min+1;
-        //System.out.println("lt: "+lt+" rt: "+ rt);
         while(lt<=rt){
             int mid=(lt+rt)/2;
-            //System.out.println("mid: "+mid);
             if(check(mid)<c){
                 rt=mid-1;
             }
