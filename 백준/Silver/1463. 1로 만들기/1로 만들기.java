@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.*;
 
@@ -13,12 +12,10 @@ public class Main {
     void solution() throws Exception{
         n = Integer.parseInt(br.readLine());
         dp=new int[n+1];
-        for(int i=1;i<=n;i++){
-            dp[i]=Integer.MAX_VALUE;
-        }
-
+      
         dp[1]=0;
         for(int i=2;i<=n;i++){
+            dp[i]=dp[i-1]+1;
             if(i%3==0&&i%2!=0){
                 int num=dp[i/3]+1;
                 dp[i]=Math.min(dp[i],num);
@@ -31,7 +28,6 @@ public class Main {
                 int num=Math.min(dp[i/3],dp[i/2])+1;
                 dp[i]=Math.min(dp[i],num);
             }
-            dp[i]=Math.min(dp[i],dp[i-1]+1);
         }
         answer=dp[n];
 
