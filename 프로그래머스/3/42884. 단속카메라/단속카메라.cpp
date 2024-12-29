@@ -1,41 +1,25 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-
 using namespace std;
 
-struct Pair{
-    int start;
-    int end;
-};
-
-bool cmp(Pair a,Pair b){
-    return a.start<b.start;
+bool cmp(vector<int> a, vector<int> b) {
+   return a[1] < b[1];  // 끝점을 기준으로 정렬
 }
 
 int solution(vector<vector<int>> routes) {
-    int answer = 1;
-    int min=-30000;
-    int max=30000;
-    vector<Pair> v;
-    
-    for(int i = 0; i < routes.size(); i++) {
-        v.push_back({routes[i][0], routes[i][1]});
-    }
-    
-    sort(v.begin(),v.end(),cmp);
-    
-    int camera = v[0].end;
-    
-    for(Pair p:v){
-        if(camera < p.start){
-            answer++;    
-            camera = p.end;
-        }
-        if(camera > p.end){
-            camera = p.end;
-        }
-    }
-    
-    return answer;
+   int answer = 0;
+   
+   sort(routes.begin(), routes.end(), cmp);
+   
+   int cam = -30000;
+   
+   for(vector<int> route : routes) {
+       if(cam < route[0]) {
+           cam = route[1];
+           answer++;
+       }
+   }
+   
+   return answer;
 }
