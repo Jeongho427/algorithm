@@ -1,54 +1,85 @@
 import java.util.*;
+import java.io.*;
+
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        int money = sc.nextInt();  // 초기 자산
-        int[] prices = new int[14];
-        for (int i = 0; i < 14; i++) {
-            prices[i] = sc.nextInt();
-        }
+    int cash,jRes,sRes;
+    int[] price = new int[14];
 
-        // 준현이 (BNP 전략)
-        int jhMoney = money;
-        int jhStock = 0;
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringTokenizer st;
 
-        for (int i = 0; i < 14; i++) {
-            if (jhMoney >= prices[i]) {
-                int canBuy = jhMoney / prices[i];
-                jhStock += canBuy;
-                jhMoney -= canBuy * prices[i];
+    int calcJRes(int cash){
+        int cnt = 0;
+
+        for(int i=0;i<14;i++){
+            int c = cash/price[i];
+            if(c>0){
+                cnt += c;
+                cash -= (c*price[i]);
             }
         }
-        int jhTotal = jhMoney + jhStock * prices[13];
 
-        // 성민이 (TIMING 전략)
-        int smMoney = money;
-        int smStock = 0;
+        return cash+cnt*price[13];
+    }
 
-        for (int i = 3; i < 14; i++) {
-            if (prices[i-3] > prices[i-2] && prices[i-2] > prices[i-1]) {
-                // 3일 연속 하락 -> 매수
-                int canBuy = smMoney / prices[i];
-                smStock += canBuy;
-                smMoney -= canBuy * prices[i];
-            } else if (prices[i-3] < prices[i-2] && prices[i-2] < prices[i-1]) {
-                // 3일 연속 상승 -> 전량 매도
-                smMoney += smStock * prices[i];
-                smStock = 0;
+    int calcSRes(int cash) {
+        int cnt = 0;
+        int up = 0, down = 0;
+
+        for (int i = 1; i < 14; i++) {
+            int c = cash / price[i];
+
+            if (price[i - 1] < price[i]) {
+                up++;
+                down = 0;
+            } else if (price[i - 1] > price[i]) {
+                down++;
+                up = 0;
+            } else {
+                up = down = 0;
+            }
+
+            if (up == 3) {
+                cash += cnt * price[i];
+                cnt = 0;
+            } else if (down == 3) {
+                if (c > 0) {
+                    cnt += c;
+                    cash -= c * price[i];
+                }
             }
         }
-        int smTotal = smMoney + smStock * prices[13];
 
-        if (jhTotal > smTotal) {
+        return cash + cnt * price[13];
+    }
+
+
+    void solution() throws Exception {
+        cash = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+        for(int i=0;i<14;i++){
+            price[i] = Integer.parseInt(st.nextToken());
+        }
+
+        jRes = calcJRes(cash);
+        sRes = calcSRes(cash);
+
+        if(jRes>sRes){
             System.out.println("BNP");
-        } else if (jhTotal < smTotal) {
+        }
+        else if(jRes<sRes){
             System.out.println("TIMING");
-        } else {
+        }
+        else{
             System.out.println("SAMESAME");
         }
+    }
 
-        sc.close();
+
+
+    public static void main(String[] args) throws Exception {
+       new Main().solution();
     }
 }
