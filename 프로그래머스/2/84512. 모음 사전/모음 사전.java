@@ -1,9 +1,10 @@
 import java.util.*;
 
 class Solution {
-    int answer;
-    String[] words={"A","E","I","O","U"};
-    List<String> dict=new ArrayList<>();
+    
+    String[] words = {"A","E","I","O","U"};
+    
+    List<String> dict = new ArrayList<>();
     
     void DFS(int L,String str){
         dict.add(str);
@@ -16,17 +17,17 @@ class Solution {
     }
     
     public int solution(String word) {
-        String str="";
+        int answer=0;
+        
+        String str = "";
         
         DFS(0,str);
         
-        int cnt=0;
         for(String s:dict){
             if(s.equals(word)){
-                answer=cnt;
                 break;
             }
-            cnt++;
+            answer++;
         }
         
         return answer;
