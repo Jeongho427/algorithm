@@ -1,11 +1,10 @@
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
-
     int n,k,answer;
-    List<Integer> arr;
+    Integer[] coins;
 
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     StringTokenizer st;
@@ -14,25 +13,24 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
         k = Integer.parseInt(st.nextToken());
-        arr = new ArrayList<>();
+        coins = new Integer[n];
 
         for(int i=0;i<n;i++){
-            arr.add(Integer.parseInt(br.readLine()));
+            coins[i] = Integer.parseInt(br.readLine());
         }
+        Arrays.sort(coins,Comparator.reverseOrder());
 
-        arr.sort(Collections.reverseOrder());
-
-        for(int a:arr){
-            if((k/a)!=0){
-                answer+=k/a;
-                k%=a;
+        for(int c:coins){
+            if(k/c!=0){
+                answer+=k/c;
+                k%=c;
             }
         }
 
         System.out.println(answer);
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         new Main().solution();
     }
 }
