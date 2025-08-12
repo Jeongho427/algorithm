@@ -5,9 +5,10 @@ import java.util.*;
 
 
 public class Main {
-    int n,answer,distSum,curCost;
+    int n,distSum;
+    long curCost,answer;
     int[] dist;
-    int[] oil;
+    long[] oil;
 
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     StringTokenizer st;
@@ -15,7 +16,7 @@ public class Main {
     void solution() throws Exception {
         n = Integer.parseInt(br.readLine());
         dist = new int[n-1];
-        oil = new int[n];
+        oil = new long[n];
 
         st = new StringTokenizer(br.readLine());
         for(int i=0;i<n-1;i++){
