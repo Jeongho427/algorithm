@@ -12,7 +12,7 @@ public class Main {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     StringTokenizer st;
 
-    void dfs(int L,int[] arr){
+    void dfs(int L){
         if(L==m){
             for(int a:arr){
                 System.out.print(a+" ");
@@ -24,7 +24,7 @@ public class Main {
             if(!ch[i]){
                 ch[i] = true;
                 arr[L] = i;
-                dfs(L+1,arr);
+                dfs(L+1);
                 ch[i] = false;
             }
         }
@@ -37,7 +37,7 @@ public class Main {
         arr = new int[m];
         ch = new boolean[n+1];
 
-        dfs(0,arr);
+        dfs(0);
     }
 
     public static void main(String[] args) throws Exception {
