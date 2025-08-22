@@ -6,14 +6,9 @@ class Solution {
         int maxRow = 0;
         int maxCol = 0;
         
-        for(int i=0;i<sizes.length;i++){
-            if(sizes[i][0]<sizes[i][1]){
-                int tmp = sizes[i][0];
-                sizes[i][0] = sizes[i][1];
-                sizes[i][1] = tmp;
-            }
-            maxRow = Math.max(maxRow,sizes[i][0]);
-            maxCol = Math.max(maxCol,sizes[i][1]);
+        for(int[] s:sizes){
+            maxRow = Math.max(maxRow, Math.max(s[0],s[1]));
+            maxCol = Math.max(maxCol, Math.min(s[0],s[1]));
         }
         
         answer = maxRow*maxCol;
