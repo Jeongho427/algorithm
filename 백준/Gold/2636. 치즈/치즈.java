@@ -27,26 +27,22 @@ public class Main {
         q.offer(new Point(0,0));
         visit[0][0] = true;
 
-        while(!q.isEmpty()) {
-            int size = q.size();
+        while (!q.isEmpty()) {
+            Point p = q.poll();
 
-            for (int i = 0; i < size; i++) {
-                Point p = q.poll();
+            for(int i=0;i<4;i++){
+                int a = p.x+dx[i];
+                int b = p.y+dy[i];
 
-                for (int j = 0; j < 4; j++) {
-                    int a = p.x + dx[j];
-                    int b = p.y + dy[j];
-
-                    if (a>=0&&a<n&&b>=0&&b<m&&!visit[a][b]) {
-                        if (map[a][b]==0) {
-                            q.offer(new Point(a, b));
-                        }
-                        else{
-                            cheese--;
-                            map[a][b] = 0;
-                        }
-                        visit[a][b] = true;
+                if(a>=0&&a<n&&b>=0&&b<m&&!visit[a][b]){
+                    if(map[a][b]==0){
+                        q.offer(new Point(a,b));
                     }
+                    else{
+                        cheese--;
+                        map[a][b] = 0;
+                    }
+                    visit[a][b] = true;
                 }
             }
         }
