@@ -2,42 +2,32 @@ import java.util.*;
 
 class Solution {
     public List<Integer> solution(int[] answers) {
-        List<Integer> answer = new ArrayList<>();
+        int[] a = {1,2,3,4,5};
+        int[] b = {2,1,2,3,2,4,2,5};
+        int[] c = {3,3,1,1,2,2,4,4,5,5};
         
-        int[] a = {1, 2, 3, 4, 5};
-        int[] b = {2, 1, 2, 3, 2, 4, 2, 5};
-        int[] c = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
+        List<Integer> answerList = new ArrayList<>();
         
-        int aCnt = 0;
-        int bCnt = 0;
-        int cCnt = 0;
+        int[] cnt = new int[3];
         
-        int idx = 0;
-        for(int ans:answers){
-            if(ans==a[idx%a.length]){
-                aCnt++;
+        for(int i=0;i<answers.length;i++){
+            if(answers[i]==a[i%a.length]){
+                cnt[0]++;
             }
-            if(ans==b[idx%b.length]){
-                bCnt++;
+            if(answers[i]==b[i%b.length]){
+                cnt[1]++;
             }
-            if(ans==c[idx%c.length]){
-                cCnt++;
+            if(answers[i]==c[i%c.length]){
+                cnt[2]++;
             }
-            idx++;
+        }
+        int max = Math.max(cnt[0],Math.max(cnt[1],cnt[2]));
+        for(int i=0;i<3;i++){
+            if(cnt[i]==max){
+                answerList.add(i+1);
+            }
         }
         
-        int max = Math.max(Math.max(aCnt,bCnt),cCnt);
-        
-        if(aCnt==max){
-            answer.add(1);
-        }
-        if(bCnt==max){
-            answer.add(2);
-        }
-        if(cCnt==max){
-            answer.add(3);
-        }
-        
-        return answer;
+        return answerList;
     }
 }
