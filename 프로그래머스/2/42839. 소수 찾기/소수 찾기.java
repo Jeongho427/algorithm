@@ -1,40 +1,56 @@
 import java.util.*;
 
 class Solution {
+    int len;
+    int answer;
+    boolean ch[];
     
-    HashSet<Integer> hs = new HashSet<>();
+    Set<Integer> set = new HashSet<>();
     
     boolean isPrime(int num){
+        boolean flag = true;
+        
         if(num==0||num==1){
             return false;
         }
+        
         for(int i=2;i<=Math.sqrt(num);i++){
             if(num%i==0){
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    void combi(String str,String others){
-        if(!str.equals("")){
-            int number=Integer.valueOf(str);
-            if(isPrime(number)){
-                hs.add(number);
+                flag = false;
+                break;
             }
         }
         
-        for(int i=0;i<others.length();i++){
-            combi(str+others.charAt(i),others.substring(0,i)+others.substring(i+1));
+        return flag;
+    }
+    
+    void dfs(int L,String str,String numbers){
+        if(str.length()>0&&isPrime(Integer.parseInt(str))){
+            set.add(Integer.parseInt(str));
+        }
+        
+        if(L==len){
+            return;
+        }
+        
+        for(int i=0;i<len;i++){
+            if(!ch[i]){
+                ch[i] = true;
+                dfs(L+1,str+numbers.charAt(i),numbers);
+                ch[i] = false;
+            }
         }
     }
     
     public int solution(String numbers) {
-        int answer = 0;
+        answer = 0;
         
-        combi("",numbers);
+        len = numbers.length();
+        ch = new boolean[len];
         
-        answer=hs.size();
+        dfs(0,"",numbers);
+        
+        answer = set.size();
         
         return answer;
     }
